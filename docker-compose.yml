@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  icecast:
+    build: .
+    image: icecast:latest
+    #restart: unless-stopped
+    ports:
+      - 8050:8050

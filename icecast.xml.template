@@ -1,0 +1,90 @@
+<icecast>
+    <location>Finland</location>
+    <admin>admin@email.notld</admin>
+
+    <limits>
+        <clients>50000</clients>
+        <sources>8</sources>
+        <threadpool>5</threadpool>
+        <queue-size>524288</queue-size> <!-- 2^19 -->
+        <client-timeout>30</client-timeout>
+        <header-timeout>10</header-timeout>
+        <source-timeout>5</source-timeout>
+        <burst-on-connect>1</burst-on-connect>
+        <burst-size>65535</burst-size>
+    </limits>
+
+    <authentication>
+       <source-password>password</source-password>
+       <relay-user>admin</relay-user>
+       <relay-password>password</relay-password>
+       <admin-user>admin</admin-user>
+       <admin-password>password</admin-password>
+    </authentication>
+
+    <hostname>add-your-hostname</hostname>
+
+    <listen-socket>
+        <port>8050</port>
+    </listen-socket>
+
+    <mount type="normal">
+    	<mount-name>/ogg</mount-name>
+        <max-listeners>10000</max-listeners>
+        <hidden>0</hidden>
+        <public>1</public>
+    </mount>
+
+    <mount type="normal">
+    	<mount-name>/mp3</mount-name>
+        <max-listeners>10000</max-listeners>
+        <hidden>0</hidden>
+        <public>1</public>
+    </mount>
+
+    <fileserve>1</fileserve>
+
+    <paths>
+        <!-- basedir is only used if chroot is enabled -->
+        <basedir>/usr/share/icecast</basedir>
+
+        <!-- Note that if <chroot> is turned on below, these paths must both
+             be relative to the new root, not the original root -->
+        <logdir>/app</logdir>
+        <webroot>/usr/share/icecast/web</webroot>
+        <adminroot>/usr/share/icecast/admin</adminroot>
+        <!-- <pidfile>/usr/share/icecast/icecast.pid</pidfile> -->
+
+        <!-- Aliases: treat requests for 'source' path as being for 'dest' path
+             May be made specific to a port or bound address using the "port"
+             and "bind-address" attributes.
+          -->
+        <!--
+        <alias source="/foo" destination="/bar"/>
+        -->
+        <!-- Aliases: can also be used for simple redirections as well,
+             this example will redirect all requests for http://server:port/ to
+             the status page
+        -->
+        <alias source="/" destination="/status.xsl"/>
+        <!-- The certificate file needs to contain both public and private part.
+             Both should be PEM encoded.
+        <ssl-certificate>/usr/share/icecast/icecast.pem</ssl-certificate>
+        -->
+    </paths>
+
+    <logging>
+        <accesslog>access.log</accesslog>
+        <errorlog>error.log</errorlog>
+        <loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+      	<logsize>10000</logsize> <!-- Max size of a logfile -->
+    </logging>
+
+    <security>
+        <chroot>0</chroot>
+        <changeowner>
+            <user>nobody</user>
+            <group>nogroup</group>
+        </changeowner>
+    </security>
+</icecast>
